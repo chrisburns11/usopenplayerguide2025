@@ -58,32 +58,9 @@
   </style>
 </head>
 
-  <!-- ✅ Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-69MWYNCENJ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-69MWYNCENJ');
-  </script>
-
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: #f9f9f9;
-      margin: 2rem;
-    }
-    h1, h2 {
-      color: #002664;
-    }
-    .subtitle { font-size: 1.25rem; font-weight: 600; color: #005BAC; }
-    .content { font-size: 1rem; line-height: 1.6; }
-    .section { margin-top: 2rem; margin-bottom: 2rem; }
-  </style>
-</head>
 <body>
   <div style="text-align: center;">
-    <img src="https://idss-proxy.imgix.net/https%3A%2F%2Ffiles.idss.com%2FC32%2F0efcbc6c-d7cc-4aa2-9ee5-ca7e854a3fe3.png" width="150">
+    <img src="{{ url_for('static', filename='oakmont-logo.png') }}" width="120" alt="Oakmont Logo">
   </div>
 
   <form method="get">
@@ -158,5 +135,14 @@
 
   <hr>
   <p style="text-align: center; font-size: 0.8rem;">© 2025 United States Golf Association. All Rights Reserved.</p>
+
+  <!-- ✅ Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-69MWYNCENJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-69MWYNCENJ');
+  </script>
 </body>
 </html>
