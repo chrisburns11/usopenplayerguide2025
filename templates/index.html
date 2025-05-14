@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2025 U.S. Open Player Guide</title>
 
+  <!-- ✅ Apply dark mode class immediately to avoid flicker -->
+  <script>
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode === "true") {
+      document.documentElement.classList.add("dark-mode");
+    }
+  </script>
+
   <style>
     :root {
       --usga-navy: #002664;
@@ -24,7 +32,7 @@
       transition: background-color 0.3s, color 0.3s;
     }
 
-    body.dark-mode {
+    .dark-mode body {
       background-color: #121212;
       color: var(--text-light);
     }
@@ -225,24 +233,24 @@
   <hr>
   <p style="text-align: center; font-size: 0.8rem;">© 2025 United States Golf Association. All Rights Reserved.</p>
 
-  <!-- 🌙 Dark Mode Script -->
+  <!-- 🌙 Dark Mode Toggle Logic -->
   <script>
     const toggle = document.getElementById("modeToggle");
 
     window.onload = function () {
       const savedMode = localStorage.getItem("darkMode");
       if (savedMode === "true") {
-        document.body.classList.add("dark-mode");
+        document.documentElement.classList.add("dark-mode");
         toggle.checked = true;
       }
     };
 
     toggle.addEventListener("change", function () {
       if (this.checked) {
-        document.body.classList.add("dark-mode");
+        document.documentElement.classList.add("dark-mode");
         localStorage.setItem("darkMode", "true");
       } else {
-        document.body.classList.remove("dark-mode");
+        document.documentElement.classList.remove("dark-mode");
         localStorage.setItem("darkMode", "false");
       }
     });
