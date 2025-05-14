@@ -34,18 +34,12 @@
       height: auto;
     }
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-
     .toggle-group {
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-left: auto;
+      justify-content: flex-end;
+      padding: 0.5rem 1rem 0 1rem;
     }
 
     .toggle-switch {
@@ -74,8 +68,10 @@
     .slider:before {
       position: absolute;
       content: "";
-      height: 20px; width: 20px;
-      left: 4px; bottom: 3px;
+      height: 20px;
+      width: 20px;
+      left: 4px;
+      bottom: 3px;
       background-color: white;
       transition: 0.4s;
       border-radius: 50%;
@@ -140,17 +136,17 @@
 </head>
 
 <body>
-  <div class="header">
-    <!-- 🌗 Dark Mode Toggle with Icon -->
-    <div class="toggle-group">
-      <span style="font-size: 1.2rem;">🌗</span>
-      <label class="toggle-switch">
-        <input type="checkbox" id="modeToggle" />
-        <span class="slider"></span>
-      </label>
-    </div>
+  <!-- 🌗 Toggle in top-right -->
+  <div class="toggle-group">
+    <span style="font-size: 1.2rem;">🌗</span>
+    <label class="toggle-switch">
+      <input type="checkbox" id="modeToggle" />
+      <span class="slider"></span>
+    </label>
+  </div>
 
-    <!-- 🏌️ Oakmont Logo -->
+  <!-- 🏌️ Oakmont Logo centered below -->
+  <div style="text-align: center; margin-top: 0.5rem;">
     <img src="{{ url_for('static', filename='oakmont-logo-bg.png') }}" width="120" alt="Oakmont Logo" />
   </div>
 
@@ -166,6 +162,7 @@
     </select>
   </form>
 
+  <!-- 📄 Content Section -->
   {% if section == "Welcome Message" %}
     <div class="section">
       <div class="subtitle">Welcome to Oakmont!</div>
@@ -228,11 +225,10 @@
   <hr>
   <p style="text-align: center; font-size: 0.8rem;">© 2025 United States Golf Association. All Rights Reserved.</p>
 
-  <!-- ✅ Dark Mode Script -->
+  <!-- 🌙 Dark Mode Script -->
   <script>
     const toggle = document.getElementById("modeToggle");
 
-    // Load saved preference
     window.onload = function () {
       const savedMode = localStorage.getItem("darkMode");
       if (savedMode === "true") {
@@ -241,7 +237,6 @@
       }
     };
 
-    // Toggle listener
     toggle.addEventListener("change", function () {
       if (this.checked) {
         document.body.classList.add("dark-mode");
@@ -253,7 +248,7 @@
     });
   </script>
 
-  <!-- ✅ Google Analytics -->
+  <!-- 📈 Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-69MWYNCENJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
