@@ -5,12 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2025 U.S. Open Player Guide</title>
 
-  <!-- ✅ Apply dark mode class immediately to avoid flicker -->
+  <!-- ✅ Prevent flicker and toggle jump -->
+  <style>
+    body {
+      visibility: hidden; /* hide until theme is applied */
+    }
+    .no-animate * {
+      transition: none !important;
+    }
+  </style>
   <script>
     const savedMode = localStorage.getItem("darkMode");
     if (savedMode === "true") {
       document.documentElement.classList.add("dark-mode");
     }
+    document.documentElement.classList.add("no-animate");
   </script>
 
   <style>
@@ -233,7 +242,7 @@
   <hr>
   <p style="text-align: center; font-size: 0.8rem;">© 2025 United States Golf Association. All Rights Reserved.</p>
 
-  <!-- 🌙 Dark Mode Toggle Logic -->
+  <!-- 🌙 Dark Mode Script -->
   <script>
     const toggle = document.getElementById("modeToggle");
 
@@ -243,6 +252,12 @@
         document.documentElement.classList.add("dark-mode");
         toggle.checked = true;
       }
+
+      // Show content and re-enable animations
+      document.body.style.visibility = "visible";
+      setTimeout(() => {
+        document.documentElement.classList.remove("no-animate");
+      }, 100);
     };
 
     toggle.addEventListener("change", function () {
