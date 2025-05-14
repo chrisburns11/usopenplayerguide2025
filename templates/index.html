@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>USGA U.S. Open Player Memo</title>
+  <link rel="icon" href="https://idss-proxy.imgix.net/https%3A%2F%2Ffiles.idss.com%2FC32%2F0efcbc6c-d7cc-4aa2-9ee5-ca7e854a3fe3.png?auto=compress&fit=max&q=80&w=1920" />
+
+  <!-- ✅ Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-69MWYNCENJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-69MWYNCENJ');
+  </script>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 2rem;
+    }
+    h1, h2 {
+      color: #002664;
+    }
+    .subtitle { font-size: 1.25rem; font-weight: 600; color: #005BAC; }
+    .content { font-size: 1rem; line-height: 1.6; }
+    .section { margin-top: 2rem; margin-bottom: 2rem; }
+  </style>
+</head>
+<body>
+  <div style="text-align: center;">
+    <img src="https://idss-proxy.imgix.net/https%3A%2F%2Ffiles.idss.com%2FC32%2F0efcbc6c-d7cc-4aa2-9ee5-ca7e854a3fe3.png" width="150">
+  </div>
+
+  <form method="get">
+    <select name="section" onchange="this.form.submit()">
+      <option {{ 'selected' if section == 'Welcome Message' }}>Welcome Message</option>
+      <option {{ 'selected' if section == 'Schedule Overview' }}>Schedule Overview</option>
+      <option {{ 'selected' if section == 'Player Services' }}>Player Services</option>
+      <option {{ 'selected' if section == 'Dining Options' }}>Dining Options</option>
+      <option {{ 'selected' if section == 'Transportation Info' }}>Transportation Info</option>
+      <option {{ 'selected' if section == 'Contact & Emergency Info' }}>Contact & Emergency Info</option>
+    </select>
+  </form>
+
+  {% if section == "Welcome Message" %}
+    <div class="section">
+      <div class="subtitle">Welcome to Oakmont!</div>
+      <div class="content">
+        Welcome to the 2025 U.S. Open at Oakmont! This mobile booklet is your go-to guide for everything you need during championship week — from schedules and dining options to transportation and player services. We’re thrilled to have you here and are committed to making your experience seamless and unforgettable.
+      </div>
+    </div>
+  {% elif section == "Schedule Overview" %}
+    <div class="section">
+      <div class="subtitle">Key Championship Dates</div>
+      <div class="content">
+        Player Registration:<br>
+        • Saturday, June 8 (12:00 P.M. – 6:00 P.M.)<br>
+        • Sunday, June 9 (7:00 A.M. – 6:00 P.M.)<br>
+        • Monday, June 10 (6:00 A.M. – 6:00 P.M.)<br><br>
+        - Tue, June 10: Practice rounds & media day<br>
+        - Wed, June 11: Final practice day<br>
+        - Thu–Sun, June 12–15: Championship rounds
+      </div>
+    </div>
+  {% elif section == "Player Services" %}
+    <div class="section">
+      <div class="subtitle">On-Site Amenities</div>
+      <div class="content">
+        - Locker rooms with full amenities<br>
+        - Massage therapists on-call (book via Player App)<br>
+        - Daily laundry pickup & return<br>
+        - Physio & athletic training staff available daily
+      </div>
+    </div>
+  {% elif section == "Dining Options" %}
+    <div class="section">
+      <div class="subtitle">Cafeteria & Grab-and-Go</div>
+      <div class="content">
+        Located near the clubhouse entrance, open 6:00 AM – 8:00 PM.<br>
+        Options include smoothies, protein bowls, and fresh sandwiches. Special dietary needs can be flagged via the app.
+      </div>
+    </div>
+  {% elif section == "Transportation Info" %}
+    <div class="section">
+      <div class="subtitle">Shuttles & Parking</div>
+      <div class="content">
+        Complimentary player shuttle runs every 15 minutes from hotels.<br>
+        Player parking available at Gate 3 with credential.<br>
+        Caddies should use designated lot at Gate 2.
+      </div>
+    </div>
+  {% elif section == "Contact & Emergency Info" %}
+    <div class="section">
+      <div class="subtitle">Key Contacts</div>
+      <div class="content">
+        - Player Services: +1 (555) 123-4567<br>
+        - Medical Emergency: Dial 911<br>
+        - On-site security: +1 (555) 765-4321<br>
+        - Lost & Found: Locker Room Services Desk
+      </div>
+    </div>
+  {% endif %}
+
+  <hr>
+  <p style="text-align: center; font-size: 0.8rem;">© 2025 United States Golf Association. All Rights Reserved.</p>
+</body>
+</html>
