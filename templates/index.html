@@ -8,7 +8,7 @@
   <!-- ✅ Prevent flicker and toggle jump -->
   <style>
     body {
-      visibility: hidden; /* hide until theme is applied */
+      visibility: hidden;
     }
     .no-animate * {
       transition: none !important;
@@ -46,11 +46,6 @@
       color: var(--text-light);
     }
 
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
     .toggle-group {
       display: flex;
       align-items: center;
@@ -75,8 +70,10 @@
     .slider {
       position: absolute;
       cursor: pointer;
-      top: 0; left: 0;
-      right: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background-color: #ccc;
       transition: 0.4s;
       border-radius: 34px;
@@ -157,7 +154,7 @@
   <div class="toggle-group">
     <span style="font-size: 1.2rem;">🌗</span>
     <label class="toggle-switch">
-      <input type="checkbox" id="modeToggle" />
+      <input type="checkbox" id="modeToggle" {% if dark_mode == 'true' %}checked{% endif %} />
       <span class="slider"></span>
     </label>
   </div>
@@ -184,65 +181,57 @@
     <div class="section">
       <div class="subtitle">Welcome to Oakmont!</div>
       <div class="content">
-        Welcome to the 2025 U.S. Open at Oakmont! This mobile booklet is your go-to guide for everything you need during championship week — from schedules and dining options to transportation and player services. We’re thrilled to have you here and are committed to making your experience seamless and unforgettable.
+        Welcome to the 2025 U.S. Open at Oakmont! This mobile booklet is your go-to guide for everything you need during championship week.
       </div>
     </div>
   {% elif section == "Schedule Overview" %}
     <div class="section">
       <div class="subtitle">Key Championship Dates</div>
       <div class="content">
-        Player Registration:<br>
-        • Saturday, June 8 (12:00 P.M. – 6:00 P.M.)<br>
-        • Sunday, June 9 (7:00 A.M. – 6:00 P.M.)<br>
-        • Monday, June 10 (6:00 A.M. – 6:00 P.M.)<br><br>
-        - Tue, June 10: Practice rounds & media day<br>
-        - Wed, June 11: Final practice day<br>
-        - Thu–Sun, June 12–15: Championship rounds
+        • Sat, June 8 (12–6 P.M.)<br>
+        • Sun, June 9 (7 A.M.–6 P.M.)<br>
+        • Mon, June 10 (6 A.M.–6 P.M.)<br>
+        - Tue: Practice & Media Day<br>
+        - Wed: Final Practice<br>
+        - Thu–Sun: Championship Rounds
       </div>
     </div>
   {% elif section == "Player Services" %}
     <div class="section">
       <div class="subtitle">On-Site Amenities</div>
       <div class="content">
-        - Locker rooms with full amenities<br>
-        - Massage therapists on-call (book via Player App)<br>
-        - Daily laundry pickup & return<br>
-        - Physio & athletic training staff available daily
+        Locker rooms, massage, laundry, and athletic trainers available daily.
       </div>
     </div>
   {% elif section == "Dining Options" %}
     <div class="section">
       <div class="subtitle">Cafeteria & Grab-and-Go</div>
       <div class="content">
-        Located near the clubhouse entrance, open 6:00 AM – 8:00 PM.<br>
-        Options include smoothies, protein bowls, and fresh sandwiches. Special dietary needs can be flagged via the app.
+        Located near the clubhouse. Open 6 A.M.–8 P.M. Dietary needs supported.
       </div>
     </div>
   {% elif section == "Transportation Info" %}
     <div class="section">
       <div class="subtitle">Shuttles & Parking</div>
       <div class="content">
-        Complimentary player shuttle runs every 15 minutes from hotels.<br>
-        Player parking available at Gate 3 with credential.<br>
-        Caddies should use designated lot at Gate 2.
+        Complimentary shuttle every 15 min. Player & caddie lots near Gate 3 & 2.
       </div>
     </div>
   {% elif section == "Contact & Emergency Info" %}
     <div class="section">
       <div class="subtitle">Key Contacts</div>
       <div class="content">
-        - Player Services: +1 (555) 123-4567<br>
-        - Medical Emergency: Dial 911<br>
-        - On-site security: +1 (555) 765-4321<br>
-        - Lost & Found: Locker Room Services Desk
+        - Services: +1 (555) 123-4567<br>
+        - Security: +1 (555) 765-4321<br>
+        - Emergency: 911
       </div>
     </div>
   {% endif %}
 
-  <hr>
-  <p style="text-align: center; font-size: 0.8rem;">© 2025 United States Golf Association. All Rights Reserved.</p>
+  <hr />
+  <p style="text-align:center; font-size: 0.8rem;">© 2025 United States Golf Association. All Rights Reserved.</p>
 
-  <!-- 🌙 Dark Mode Script -->
+  <!-- 🌙 Dark Mode Logic -->
   <script>
     const toggle = document.getElementById("modeToggle");
 
@@ -253,7 +242,7 @@
         toggle.checked = true;
       }
 
-      // Show content and re-enable animations
+      // Reveal page and restore transitions
       document.body.style.visibility = "visible";
       setTimeout(() => {
         document.documentElement.classList.remove("no-animate");
@@ -261,13 +250,10 @@
     };
 
     toggle.addEventListener("change", function () {
-      if (this.checked) {
-        document.documentElement.classList.add("dark-mode");
-        localStorage.setItem("darkMode", "true");
-      } else {
-        document.documentElement.classList.remove("dark-mode");
-        localStorage.setItem("darkMode", "false");
-      }
+      const newValue = this.checked ? "true" : "false";
+      document.cookie = `darkMode=${newValue};path=/`;
+      localStorage.setItem("darkMode", newValue);
+      document.documentElement.classList.toggle("dark-mode", this.checked);
     });
   </script>
 
