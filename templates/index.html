@@ -87,6 +87,8 @@
     <img src="https://idss-proxy.imgix.net/https%3A%2F%2Ffiles.idss.com%2FC32%2F0efcbc6c-d7cc-4aa2-9ee5-ca7e854a3fe3.png" width="150">
   </div>
 
+<img src="{{ url_for('static', filename='oakmont-logo.png') }}" width="120" alt="Oakmont Logo">
+  
   <form method="get">
     <select name="section" onchange="this.form.submit()">
       <option {{ 'selected' if section == 'Welcome Message' }}>Welcome Message</option>
