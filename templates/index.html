@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2025 U.S. Open Player Guide</title>
+
   <style>
     :root {
       --usga-navy: #002664;
@@ -33,12 +34,59 @@
       height: auto;
     }
 
-    h1, h2 {
-      color: var(--usga-navy);
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
     }
 
-    .dark-mode h1, .dark-mode h2 {
-      color: #8ab4f8;
+    .toggle-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px; width: 20px;
+      left: 4px; bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--usga-red);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
     }
 
     select {
@@ -46,11 +94,10 @@
       padding: 0.75rem;
       font-size: 1rem;
       margin: 1rem 0;
-      background-color: #fff;
+      background-color: white;
       color: #000;
       border: 2px solid var(--usga-blue);
       border-radius: 8px;
-      transition: background-color 0.2s;
     }
 
     .dark-mode select {
@@ -80,72 +127,6 @@
       margin-bottom: 2rem;
     }
 
-    .accordion {
-      background-color: var(--usga-blue);
-      color: white;
-      border: none;
-      padding: 1rem;
-      font-size: 1rem;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      outline: none;
-      margin-top: 1rem;
-      border-radius: 6px;
-      transition: background-color 0.2s;
-    }
-
-    .accordion:hover {
-      background-color: var(--usga-navy);
-    }
-
-    .dark-mode .accordion {
-      background-color: #333;
-      color: #f1f1f1;
-    }
-
-    .panel {
-      display: none;
-      padding: 0 1rem 1rem 1rem;
-      border-left: 3px solid var(--usga-blue);
-      margin-bottom: 1rem;
-    }
-
-    .dark-mode .panel {
-      border-color: #666;
-    }
-
-    button.toggle-mode {
-      background-color: var(--usga-navy);
-      color: white;
-      border: none;
-      padding: 0.6rem 1.2rem;
-      font-size: 0.9rem;
-      border-radius: 6px;
-      cursor: pointer;
-      margin: 1rem auto;
-      display: inline-block;
-    }
-
-    button.toggle-mode:hover {
-      background-color: var(--usga-blue);
-    }
-
-    .back-to-top {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: var(--usga-blue);
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 50%;
-      font-size: 18px;
-      display: none;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
     @media screen and (max-width: 600px) {
       .subtitle {
         font-size: 1.1rem;
@@ -159,12 +140,21 @@
 </head>
 
 <body>
-  <div style="text-align: center;">
-    <img src="{{ url_for('static', filename='oakmont-logo-bg.png') }}" width="120" alt="Oakmont Logo">
-    <br><br>
-    <button onclick="toggleDarkMode()" class="toggle-mode">🌓 Toggle Dark Mode</button>
+  <div class="header">
+    <!-- 🌗 Dark Mode Toggle with Icon -->
+    <div class="toggle-group">
+      <span style="font-size: 1.2rem;">🌗</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="modeToggle" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <!-- 🏌️ Oakmont Logo -->
+    <img src="{{ url_for('static', filename='oakmont-logo-bg.png') }}" width="120" alt="Oakmont Logo" />
   </div>
 
+  <!-- 🧭 Navigation Dropdown -->
   <form method="get">
     <select name="section" onchange="this.form.submit()">
       <option {{ 'selected' if section == 'Welcome Message' }}>Welcome Message</option>
@@ -176,60 +166,91 @@
     </select>
   </form>
 
-  {% set sections = {
-    "Welcome Message": "Welcome to the 2025 U.S. Open at Oakmont! This mobile booklet is your go-to guide for everything you need during championship week — from schedules and dining options to transportation and player services. We’re thrilled to have you here and are committed to making your experience seamless and unforgettable.",
-    "Schedule Overview": "Player Registration:<br>• Saturday, June 8 (12:00 P.M. – 6:00 P.M.)<br>• Sunday, June 9 (7:00 A.M. – 6:00 P.M.)<br>• Monday, June 10 (6:00 A.M. – 6:00 P.M.)<br><br>- Tue, June 10: Practice rounds & media day<br>- Wed, June 11: Final practice day<br>- Thu–Sun, June 12–15: Championship rounds",
-    "Player Services": "- Locker rooms with full amenities<br>- Massage therapists on-call (book via Player App)<br>- Daily laundry pickup & return<br>- Physio & athletic training staff available daily",
-    "Dining Options": "Located near the clubhouse entrance, open 6:00 AM – 8:00 PM.<br>Options include smoothies, protein bowls, and fresh sandwiches. Special dietary needs can be flagged via the app.",
-    "Transportation Info": "Complimentary player shuttle runs every 15 minutes from hotels.<br>Player parking available at Gate 3 with credential.<br>Caddies should use designated lot at Gate 2.",
-    "Contact & Emergency Info": "- Player Services: +1 (555) 123-4567<br>- Medical Emergency: Dial 911<br>- On-site security: +1 (555) 765-4321<br>- Lost & Found: Locker Room Services Desk"
-  } %}
-
-  {% for title, content in sections.items() %}
-    <button class="accordion">{{ title }}</button>
-    <div class="panel">
-      <div class="content">{{ content|safe }}</div>
+  {% if section == "Welcome Message" %}
+    <div class="section">
+      <div class="subtitle">Welcome to Oakmont!</div>
+      <div class="content">
+        Welcome to the 2025 U.S. Open at Oakmont! This mobile booklet is your go-to guide for everything you need during championship week — from schedules and dining options to transportation and player services. We’re thrilled to have you here and are committed to making your experience seamless and unforgettable.
+      </div>
     </div>
-  {% endfor %}
+  {% elif section == "Schedule Overview" %}
+    <div class="section">
+      <div class="subtitle">Key Championship Dates</div>
+      <div class="content">
+        Player Registration:<br>
+        • Saturday, June 8 (12:00 P.M. – 6:00 P.M.)<br>
+        • Sunday, June 9 (7:00 A.M. – 6:00 P.M.)<br>
+        • Monday, June 10 (6:00 A.M. – 6:00 P.M.)<br><br>
+        - Tue, June 10: Practice rounds & media day<br>
+        - Wed, June 11: Final practice day<br>
+        - Thu–Sun, June 12–15: Championship rounds
+      </div>
+    </div>
+  {% elif section == "Player Services" %}
+    <div class="section">
+      <div class="subtitle">On-Site Amenities</div>
+      <div class="content">
+        - Locker rooms with full amenities<br>
+        - Massage therapists on-call (book via Player App)<br>
+        - Daily laundry pickup & return<br>
+        - Physio & athletic training staff available daily
+      </div>
+    </div>
+  {% elif section == "Dining Options" %}
+    <div class="section">
+      <div class="subtitle">Cafeteria & Grab-and-Go</div>
+      <div class="content">
+        Located near the clubhouse entrance, open 6:00 AM – 8:00 PM.<br>
+        Options include smoothies, protein bowls, and fresh sandwiches. Special dietary needs can be flagged via the app.
+      </div>
+    </div>
+  {% elif section == "Transportation Info" %}
+    <div class="section">
+      <div class="subtitle">Shuttles & Parking</div>
+      <div class="content">
+        Complimentary player shuttle runs every 15 minutes from hotels.<br>
+        Player parking available at Gate 3 with credential.<br>
+        Caddies should use designated lot at Gate 2.
+      </div>
+    </div>
+  {% elif section == "Contact & Emergency Info" %}
+    <div class="section">
+      <div class="subtitle">Key Contacts</div>
+      <div class="content">
+        - Player Services: +1 (555) 123-4567<br>
+        - Medical Emergency: Dial 911<br>
+        - On-site security: +1 (555) 765-4321<br>
+        - Lost & Found: Locker Room Services Desk
+      </div>
+    </div>
+  {% endif %}
 
   <hr>
   <p style="text-align: center; font-size: 0.8rem;">© 2025 United States Golf Association. All Rights Reserved.</p>
 
-  <!-- 🔼 Back to Top Button -->
-  <button onclick="scrollToTop()" id="backToTopBtn" class="back-to-top">↑</button>
-
-  <!-- ✅ Scripts -->
+  <!-- ✅ Dark Mode Script -->
   <script>
-    // Collapsible Sections
-    const acc = document.getElementsByClassName("accordion");
-    for (let i = 0; i < acc.length; i++) {
-      acc[i].addEventListener("click", function () {
-        this.classList.toggle("active");
-        const panel = this.nextElementSibling;
-        panel.style.display = (panel.style.display === "block") ? "none" : "block";
-      });
-    }
+    const toggle = document.getElementById("modeToggle");
 
-    // Dark Mode with localStorage
-    function toggleDarkMode() {
-      const isDark = document.body.classList.toggle("dark-mode");
-      localStorage.setItem("darkMode", isDark);
-    }
-
+    // Load saved preference
     window.onload = function () {
-      if (localStorage.getItem("darkMode") === "true") {
+      const savedMode = localStorage.getItem("darkMode");
+      if (savedMode === "true") {
         document.body.classList.add("dark-mode");
+        toggle.checked = true;
       }
     };
 
-    // Back to Top
-    const backToTopBtn = document.getElementById("backToTopBtn");
-    window.onscroll = function () {
-      backToTopBtn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
-    };
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    // Toggle listener
+    toggle.addEventListener("change", function () {
+      if (this.checked) {
+        document.body.classList.add("dark-mode");
+        localStorage.setItem("darkMode", "true");
+      } else {
+        document.body.classList.remove("dark-mode");
+        localStorage.setItem("darkMode", "false");
+      }
+    });
   </script>
 
   <!-- ✅ Google Analytics -->
