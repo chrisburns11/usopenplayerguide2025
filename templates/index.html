@@ -7,15 +7,9 @@
   <style>
     body { visibility: hidden; }
     .no-animate * { transition: none !important; }
-  </style>
-  <script>
-    const savedMode = localStorage.getItem("darkMode");
-    if (savedMode === "true") {
-      document.documentElement.classList.add("dark-mode");
-    }
-    document.documentElement.classList.add("no-animate");
-  </script>
-  <style>
+    summary { cursor: pointer; font-weight: bold; margin-top: 1rem; }
+    details { margin-bottom: 1rem; }
+
     :root {
       --usga-navy: #002664;
       --usga-blue: #005BAC;
@@ -24,6 +18,7 @@
       --text-light: #f1f1f1;
       --text-dark: #000;
     }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--light-gray);
@@ -32,10 +27,12 @@
       padding: 1rem;
       transition: background-color 0.3s, color 0.3s;
     }
+
     .dark-mode body {
       background-color: #121212;
       color: var(--text-light);
     }
+
     .toggle-group {
       display: flex;
       align-items: center;
@@ -43,17 +40,20 @@
       justify-content: flex-end;
       padding: 0.5rem 1rem 0 1rem;
     }
+
     .toggle-switch {
       position: relative;
       display: inline-block;
       width: 50px;
       height: 26px;
     }
+
     .toggle-switch input {
       opacity: 0;
       width: 0;
       height: 0;
     }
+
     .slider {
       position: absolute;
       cursor: pointer;
@@ -65,6 +65,7 @@
       transition: 0.4s;
       border-radius: 34px;
     }
+
     .slider:before {
       position: absolute;
       content: "";
@@ -76,12 +77,15 @@
       transition: 0.4s;
       border-radius: 50%;
     }
+
     input:checked + .slider {
       background-color: var(--usga-red);
     }
+
     input:checked + .slider:before {
       transform: translateX(24px);
     }
+
     select {
       width: 100%;
       padding: 0.75rem;
@@ -92,33 +96,35 @@
       border: 2px solid var(--usga-blue);
       border-radius: 8px;
     }
+
     .dark-mode select {
       background-color: #222;
       color: #f1f1f1;
       border-color: #666;
     }
-    .subtitle {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--usga-blue);
-      margin-top: 1rem;
-    }
-    .dark-mode .subtitle {
-      color: #8ab4f8;
-    }
+
     .content {
       font-size: 1rem;
       line-height: 1.6;
     }
+
     .section {
       margin-top: 2rem;
       margin-bottom: 2rem;
     }
+
     @media screen and (max-width: 600px) {
-      .subtitle { font-size: 1.1rem; }
       .content { font-size: 0.95rem; }
     }
   </style>
+
+  <script>
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode === "true") {
+      document.documentElement.classList.add("dark-mode");
+    }
+    document.documentElement.classList.add("no-animate");
+  </script>
 </head>
 <body>
   <div class="toggle-group">
@@ -128,9 +134,11 @@
       <span class="slider"></span>
     </label>
   </div>
+
   <div style="text-align: center; margin-top: 0.5rem;">
     <img src="{{ url_for('static', filename='oakmont-logo-bg.png') }}" width="120" alt="Oakmont Logo" />
   </div>
+
   <form method="get">
     <select name="section" onchange="this.form.submit()">
       <option {% if section == 'Welcome' %}selected{% endif %}>Welcome</option>
@@ -149,405 +157,433 @@
 
   {% if section == "Welcome" %}
   <div class="section">
-    <div class="subtitle">Welcome to Oakmont!</div>
     <div class="content">
-      Welcome to the 2025 U.S. Open at Oakmont! This mobile booklet is your go-to guide for everything you need during championship week.
+      <p>Welcome to the 2025 U.S. Open Championship at historic Oakmont Country Club.</p>
+      <p>This interactive mobile guide was designed with you in mind — players and caddies alike — to provide everything you need throughout championship week. From practice schedules and shuttle times to fitness services and dining access, you’ll find all the essential information right here at your fingertips.</p>
+      <p>We’re excited to host you at one of golf’s most iconic venues. Whether it’s your first U.S. Open or your tenth, we’re here to ensure your experience is smooth, comfortable, and world-class.</p>
+      <p>Let’s make this an unforgettable week.</p>
     </div>
   </div>
+
 {% elif section == "Championship Schedule" %}
   <div class="section">
-    <div class="subtitle">📅 Key Dates</div>
     <div class="content">
-      <strong>Practice Rounds</strong><br>
-      • Mon, June 9 – Wed, June 11<br>
-      • Tee Times: 6:45 AM–8:57 AM (AM) & 12:30 PM–2:42 PM (PM)<br>
-      • Register for tee times in the Player Relations Office<br><br>
-
-      <strong>Championship Rounds</strong><br>
-      • Round 1: Thu, June 12<br>
-      • Round 2: Fri, June 13<br>
-      • Round 3: Sat, June 14<br>
-      • Round 4: Sun, June 15<br><br>
-
-      <strong>Broadcast Coverage (EST)</strong><br>
-      • Thu–Sat: until 8:00 PM<br>
-      • Sun: until 7:00 PM<br><br>
-
-      <strong>Player Registration</strong><br>
-      • Sat, June 7: 12:00 PM – 6:00 PM<br>
-      • Sun, June 8: 7:00 AM – 6:00 PM<br>
-      • Mon, June 9: 6:00 AM – 6:00 PM<br><br>
-
-      <strong>Notes</strong><br>
-      • Shorts allowed during practice rounds<br>
-      • Long pants required during championship play<br>
-      • Schedule updates will be posted daily
+      <details>
+        <summary>Practice Rounds</summary>
+        <ul>
+          <li>Mon, June 9 – Wed, June 11</li>
+          <li>Tee Times: 6:45 AM–8:57 AM & 12:30 PM–2:42 PM</li>
+          <li>Register at the Player Relations Office</li>
+        </ul>
+      </details>
+      <details>
+        <summary>Championship Rounds</summary>
+        <ul>
+          <li>Round 1: Thu, June 12</li>
+          <li>Round 2: Fri, June 13</li>
+          <li>Round 3: Sat, June 14</li>
+          <li>Round 4: Sun, June 15</li>
+        </ul>
+      </details>
+      <details>
+        <summary>Broadcast Coverage</summary>
+        <ul>
+          <li>Thu–Sat: until 8:00 PM EST</li>
+          <li>Sun: until 7:00 PM EST</li>
+        </ul>
+      </details>
+      <details>
+        <summary>Player Registration</summary>
+        <ul>
+          <li>Sat, June 7: 12:00 PM – 6:00 PM</li>
+          <li>Sun, June 8: 7:00 AM – 6:00 PM</li>
+          <li>Mon, June 9: 6:00 AM – 6:00 PM</li>
+        </ul>
+      </details>
+      <details>
+        <summary>Dress Code & Reminders</summary>
+        <ul>
+          <li>Shorts allowed during practice rounds</li>
+          <li>Long pants required during championship play</li>
+          <li>Schedule updates posted daily</li>
+        </ul>
+      </details>
     </div>
   </div>
-{% elif section == "Player Information" %}
+
+  {% elif section == "Player Information" %}
   <div class="section">
-    <div class="subtitle">🧍 Player Info & Services</div>
     <div class="content">
-      <strong>🔐 Locker Room & Amenities</strong><br>
-      • Located on 2nd floor of Clubhouse<br>
-      • Complimentary laundry (24hr turnaround)<br>
-      • Wicket Facial Authentication required for entry<br><br>
-
-      <strong>🏌️ Practice Facilities</strong><br>
-      • Open daily: 60 min before first tee time to dusk<br>
-      • Range, short game area (≤30 yd shots), and two putting greens<br>
-      • +2 support access with Practice Area Access Cards<br><br>
-
-      <strong>📘 Yardage Book & Rules</strong><br>
-      • Model Local Rule G-11 in effect (approved yardage book required)<br>
-      • Complimentary book at registration (1 per player & caddie)<br>
-      • No use of levels on championship putting greens (June 2 onward)<br>
-      • DMDs prohibited in competition; allowed in practice rounds<br><br>
-
-      <strong>⛳ On-Course Details</strong><br>
-      • Tee marker variability may apply<br>
-      • Hole locations measured from blue front dot<br>
-      • Updates texted ~30 mins after play ends<br><br>
-
-      <strong>📋 Scoring Procedures</strong><br>
-      • Scorecard due 15 mins after electronic acceptance<br>
-      • Scoring located in the Golf Shop<br>
-      • Ask Rules Staff for “When Scorecard is Returned” notice<br><br>
-
-      <strong>📏 Equipment Testing</strong><br>
-      • USGA will conduct random driver CT testing (G-10)<br>
-      • Contact Player Relations for help<br><br>
-
-      <strong>💺 Player Dining</strong><br>
-      • Location: Men’s Grill (near Locker Room)<br>
-      • Breakfast: 5:00 AM – 10:30 AM<br>
-      • Lunch: 11:00 AM – 3:00 PM<br>
-      • Snacks: 4:00 PM – 7:00 PM<br><br>
-
-      <strong>🧘‍♂️ Fitness & Recovery</strong><br>
-      • Gym located behind practice range<br>
-      • Ice baths & sauna: 2nd floor of Locker Room<br>
-      • USGA PT team near Player Grill<br>
-      • PGA Tour Fitness trailers on-site<br><br>
-
-      <strong>🎥 Filming</strong><br>
-      • Netflix/Vox Media onsite<br>
-      • Cameras not permitted in Player-Only Dining<br><br>
-
-      <strong>🛍️ Merchandise</strong><br>
-      • 20% discount at merchandise pavilions<br>
-      • Shuttle available to main pavilion<br><br>
-
-      <strong>🏁 Miscellaneous</strong><br>
-      • “Call-up” policy may be used for pace of play<br>
-      • Rules Rovers will assist if needed<br>
-      • Suspension/resumption notices via text<br>
-      • In a tie: 2-hole aggregate playoff (17 & 18); sudden death after if needed
+      <details><summary>Locker Room & Amenities</summary>
+        <ul>
+          <li>2nd floor of Clubhouse</li>
+          <li>Complimentary laundry (24hr)</li>
+          <li>Wicket Facial Authentication required</li>
+        </ul>
+      </details>
+      <details><summary>Practice Facilities</summary>
+        <ul>
+          <li>Open: 60 min before first tee to dusk</li>
+          <li>Includes range, short game area, 2 putting greens</li>
+          <li>+2 support with Access Cards</li>
+        </ul>
+      </details>
+      <details><summary>Yardage Book & Rules</summary>
+        <ul>
+          <li>Model Local Rule G-11 applies</li>
+          <li>1 complimentary book per player & caddie</li>
+          <li>No levels on greens (after June 2)</li>
+          <li>DMDs allowed in practice only</li>
+        </ul>
+      </details>
+      <details><summary>Scoring Procedures</summary>
+        <ul>
+          <li>Scorecard due 15 min after electronic submission</li>
+          <li>Scoring located in the Golf Shop</li>
+          <li>Ask Rules Staff for official notice</li>
+        </ul>
+      </details>
+      <details><summary>Fitness & Recovery</summary>
+        <ul>
+          <li>Gym behind practice range</li>
+          <li>Ice baths & sauna in locker room</li>
+          <li>PT & recovery services near Player Grill</li>
+        </ul>
+      </details>
+      <details><summary>Dining Options</summary>
+        <ul>
+          <li>Player Grill (5 AM – 7 PM daily)</li>
+          <li>Men’s Grill (Clubhouse)</li>
+          <li>Nutritionist-designed menus</li>
+        </ul>
+      </details>
+      <details><summary>Miscellaneous</summary>
+        <ul>
+          <li>Call-up policy in use</li>
+          <li>Score updates via text</li>
+          <li>2-hole playoff (17–18), then sudden death</li>
+        </ul>
+      </details>
     </div>
   </div>
+
 {% elif section == "Caddie Information" %}
   <div class="section">
-    <div class="subtitle">🧳 Caddie Guidelines</div>
     <div class="content">
-      <strong>📋 Registration & Bibs</strong><br>
-      • Caddie registration at the Player Grill<br>
-      • Bibs available from Thursday in Caddie HQ<br>
-      • Must be worn on all championship days (Thu–Sun)<br>
-      • Return bibs to HQ daily after play<br><br>
-
-      <strong>📘 Yardage Book & Equipment Rules</strong><br>
-      • Complimentary yardage book at registration<br>
-      • Model Local Rule G-11 in effect (approved books only)<br>
-      • Limit on handwritten notes for reading lines<br>
-      • No levels on championship greens (June 2+)<br><br>
-
-      <strong>🚶 Course Access & Etiquette</strong><br>
-      • Inside-the-ropes access allowed prior to Thursday<br>
-      • Stay off putting greens on Wed PM after hole locations are set<br>
-      • During competition: remain off greens and outside gallery ropes if players are present<br><br>
-
-      <strong>🧼 Conduct & Dress Code</strong><br>
-      • Collared shirt required<br>
-      • Shorts/pants allowed — no cut-offs, gym wear, or denim<br>
-      • Rubber-sole shoes only (no spikes or ripple soles)<br><br>
-
-      <strong>⛳ Responsibilities</strong><br>
-      • Rake bunkers and place rakes outside the bunker, parallel to play<br>
-      • Do not access USGA offices without escort<br>
-      • Do not use or share any unpublished course setup info<br><br>
-
-      <strong>🗺️ Hole Location Sheets</strong><br>
-      • Provided daily — including practice rounds<br>
-      • Championship round sheets distributed night before<br>
-      • Always verify latest version at your starting tee<br><br>
-
-      <strong>🚫 Transportation</strong><br>
-      • Model Local Rule G-6 in effect<br>
-      • Players and caddies must walk unless authorized<br><br>
-
-      <strong>🍴 Dining (Player Grill)</strong><br>
-      • Location: back of practice range<br>
-      • Hours:<br>
-        – Breakfast: 5:00 AM – 10:30 AM<br>
-        – Lunch: 11:00 AM – 3:00 PM<br>
-        – Snacks: 4:00 PM – 7:00 PM<br>
-      • Courtesy shuttles available from locker room<br><br>
-
-      <strong>🧘‍♂️ Fitness & Recovery</strong><br>
-      • USGA PT team available near the gym<br>
-      • Includes chiropractic and physical therapy services<br>
+      <details><summary>Registration & Bibs</summary>
+        <ul>
+          <li>Pick up at Player Grill</li>
+          <li>Return bibs daily</li>
+        </ul>
+      </details>
+      <details><summary>Dress Code & Conduct</summary>
+        <ul>
+          <li>Collared shirt required</li>
+          <li>No gym wear, cutoffs, or denim</li>
+          <li>Rubber-sole shoes only</li>
+        </ul>
+      </details>
+      <details><summary>Course Access & Etiquette</summary>
+        <ul>
+          <li>Allowed inside ropes before Thu</li>
+          <li>Stay off greens Wed PM & during rounds</li>
+        </ul>
+      </details>
+      <details><summary>Practice Rules</summary>
+        <ul>
+          <li>No levels on greens after June 2</li>
+          <li>Yardage books must follow G-11</li>
+        </ul>
+      </details>
+      <details><summary>Dining Access</summary>
+        <ul>
+          <li>Player Grill (all day)</li>
+          <li>Courtesy shuttles from Locker Room</li>
+        </ul>
+      </details>
+      <details><summary>Recovery Access</summary>
+        <ul>
+          <li>USGA PT team available</li>
+        </ul>
+      </details>
     </div>
   </div>
 
-  {% elif section == "Dining & Hospitality" %}
+{% elif section == "Dining & Hospitality" %}
   <div class="section">
-    <div class="subtitle">🍽️ Meals, Hours & Hospitality</div>
     <div class="content">
-      <strong>👨‍🍳 Player-Only Dining</strong><br>
-      • Location: Men’s Grill (near Locker Room)<br>
-      • Nutritionist-designed meals<br>
-      • Hours:<br>
-        – Breakfast: 5:00 AM – 10:30 AM<br>
-        – Lunch: 11:00 AM – 3:00 PM<br>
-        – Snacks: 5:00 AM – 7:00 PM<br>
-        – Beverage Service: 5:00 AM – 7:00 PM<br><br>
-
-      <strong>🧑‍🤝‍🧑 Player Hospitality</strong><br>
-      • Clubhouse Dining Room<br>
-      • Access: Players + 4 guests (kids under 10 not counted)<br>
-      • Hours:<br>
-        – Breakfast: 5:00 AM – 11:00 AM<br>
-        – Lunch: 11:00 AM – 3:00 PM<br>
-        – Snacks: 3:00 PM – 7:00 PM<br>
-        – Bar: 11:00 AM – 7:00 PM<br><br>
-
-      <strong>🥪 Player Grill</strong><br>
-      • Location: Behind the driving range<br>
-      • Access: Players, caddies, and support staff<br>
-      • Same hours as Player Hospitality<br><br>
-
-      <strong>🧒 Childcare</strong><br>
-      • Provider: O.C.L. Inc. at Redeemer Lutheran Church (0.4 mi)<br>
-      • Mon–Wed: 8:00 AM – 5:30 PM<br>
-      • Thu–Sun: 8:00 AM – 7:00 PM<br><br>
-
-      <strong>🛍️ Merchandise</strong><br>
-      • 20% discount available<br>
-      • Main Pavilion (East side) + Satellite near practice range<br><br>
-
-      <strong>📷 Media Policy</strong><br>
-      • Netflix/Vox Media filming onsite<br>
-      • No cameras in Player-Only Dining
+      <details><summary>Player-Only Dining</summary>
+        <ul>
+          <li>Men’s Grill – Clubhouse</li>
+          <li>5 AM–7 PM (full meals + snacks)</li>
+        </ul>
+      </details>
+      <details><summary>Player Hospitality (Guests)</summary>
+        <ul>
+          <li>Dining Room access for Player + 4 guests</li>
+          <li>Children under 10 not counted</li>
+          <li>Meals, bar, lounge access</li>
+        </ul>
+      </details>
+      <details><summary>Player Grill (Support Access)</summary>
+        <ul>
+          <li>Behind range</li>
+          <li>Support, caddies, players welcome</li>
+          <li>Meals + snacks 5 AM–7 PM</li>
+        </ul>
+      </details>
+      <details><summary>Childcare</summary>
+        <ul>
+          <li>Redeemer Lutheran Church (0.4 mi)</li>
+          <li>Mon–Wed: 8 AM – 5:30 PM</li>
+          <li>Thu–Sun: 8 AM – 7 PM</li>
+        </ul>
+      </details>
+      <details><summary>Merchandise Discount</summary>
+        <ul>
+          <li>20% off for players, caddies, guests</li>
+          <li>Main pavilion & satellite near range</li>
+        </ul>
+      </details>
     </div>
   </div>
+
 {% elif section == "Transportation & Parking" %}
   <div class="section">
-    <div class="subtitle">🚗 Transportation & Parking</div>
     <div class="content">
-      <strong>🛬 Airports</strong><br>
-      • Pittsburgh Intl. (PIT): nearest commercial<br>
-      • Allegheny County (AGC): for private charters<br><br>
-
-      <strong>🚙 Courtesy Cars</strong><br>
-      • Lexus cars provided to players<br>
-      • Pickup at PIT, AGC, or Oakmont<br><br>
-
-      <strong>✈️ Travelers Charter</strong><br>
-      • Sign up during pre-registration<br>
-      • Wasserman team onsite in Player Relations<br><br>
-
-      <strong>🚌 Shuttle Service</strong><br>
-      • Daily from 4:00 AM – 9:00 PM<br>
-      • Covers Locker Room, Player Grill, fitness area<br><br>
-
-      <strong>🅿️ Parking</strong><br>
-      • Players: Designated lot (TBA)<br>
-      • Caddies: Lot C (across from Club)<br>
-      • Family/Guests: Lot D (shuttle to Gate 5)<br><br>
-
-      <strong>📞 Hotline</strong><br>
-      • Fugazy Transportation: (123) 456-7890
+      <details><summary>Air Travel</summary>
+        <ul>
+          <li>PIT = Commercial</li>
+          <li>AGC = Private</li>
+        </ul>
+      </details>
+      <details><summary>Courtesy Cars</summary>
+        <ul>
+          <li>Lexus vehicles for all players</li>
+          <li>Pickup at PIT, AGC, or Oakmont</li>
+        </ul>
+      </details>
+      <details><summary>Charter Flight</summary>
+        <ul>
+          <li>Sign-up via registration link</li>
+          <li>See Wasserman at Player Relations</li>
+        </ul>
+      </details>
+      <details><summary>Shuttles</summary>
+        <ul>
+          <li>Run 4 AM – 9 PM</li>
+          <li>Connects Locker Room, Grill, Range</li>
+        </ul>
+      </details>
+      <details><summary>Parking Lots</summary>
+        <ul>
+          <li>Players: Lot TBA</li>
+          <li>Caddies: Lot C</li>
+          <li>Guests: Lot D (shuttle to Gate 5)</li>
+        </ul>
+      </details>
+      <details><summary>Contact</summary>
+        <ul>
+          <li>Fugazy Hotline: (123) 456-7890</li>
+        </ul>
+      </details>
     </div>
   </div>
-{% elif section == "Fitness & Recovery" %}
+
+  {% elif section == "Fitness & Recovery" %}
   <div class="section">
-    <div class="subtitle">💪 Fitness & Recovery</div>
     <div class="content">
-      <strong>🏋️ Fitness Center</strong><br>
-      • Location: Behind practice range<br>
-      • Shuttles available from locker room<br><br>
-
-      <strong>🧘 Recovery Services</strong><br>
-      • USGA Recovery Team (led by Dr. John Doe)<br>
-      • PT, chiropractic, massage available<br>
-      • Location: Near Player Grill<br><br>
-
-      <strong>💧 Ice Baths & Sauna</strong><br>
-      • 1st Floor Locker Room<br><br>
-
-      <strong>🧑‍⚕️ Independent Therapists</strong><br>
-      • Space available in Locker Room<br>
-      • Open to certified outside providers<br><br>
-
-      <strong>🕒 Hours</strong><br>
-      • Posted onsite & available at Player Relations
+      <details><summary>Fitness Center</summary>
+        <ul>
+          <li>Behind practice range</li>
+          <li>Shuttle available from Locker Room</li>
+        </ul>
+      </details>
+      <details><summary>Recovery Team</summary>
+        <ul>
+          <li>PT, Chiropractic, Massage</li>
+          <li>Located near Player Grill</li>
+        </ul>
+      </details>
+      <details><summary>Ice Baths & Sauna</summary>
+        <ul>
+          <li>1st floor of Locker Room</li>
+        </ul>
+      </details>
+      <details><summary>Independent Therapists</summary>
+        <ul>
+          <li>Designated workspace available in Locker Room</li>
+        </ul>
+      </details>
     </div>
   </div>
+
 {% elif section == "Tickets & Credentialing" %}
   <div class="section">
-    <div class="subtitle">🎟️ Tickets & Credentialing</div>
     <div class="content">
-      <strong>🎫 Packages</strong><br>
-      • Option A: 4 Trophy Club<br>
-      • Option B: 2 Trophy Club + 4 Gallery<br>
-      • Option C: 8 Gallery<br><br>
-
-      <strong>📘 Ticket Types</strong><br>
-      • Trophy Club: Climate-controlled + F&B (not included)<br>
-      • Gallery: Grounds access only<br><br>
-
-      <strong>➕ Add-ons</strong><br>
-      • Buy up to 8 extra tickets/day at registration<br>
-      • Only player/spouse/manager may purchase<br><br>
-
-      <strong>🎟️ Caddie Tickets</strong><br>
-      • 1 digital ticket included<br>
-      • Buy 2 more per day at Player Grill<br><br>
-
-      <strong>🪪 Credentials</strong><br>
-      • Only PGA Tour Certified Agents may enter:<br>
-        – Dining<br>
-        – Media<br>
-        – Locker Room<br>
-        – Clubhouse<br><br>
-
-      <strong>📎 Registration</strong><br>
-      • Register at least 2 weeks in advance<br>
-      • Late arrivals still require registration
+      <details><summary>Ticket Options</summary>
+        <ul>
+          <li>Option A: 4 Trophy Club</li>
+          <li>Option B: 2 Trophy + 4 Gallery</li>
+          <li>Option C: 8 Gallery</li>
+        </ul>
+      </details>
+      <details><summary>Ticket Definitions</summary>
+        <ul>
+          <li>Trophy Club: Air-conditioned with food & beverage</li>
+          <li>Gallery: Grounds access only</li>
+        </ul>
+      </details>
+      <details><summary>Additional Tickets</summary>
+        <ul>
+          <li>Max 8/day available at registration</li>
+          <li>Only player/spouse/manager may purchase</li>
+        </ul>
+      </details>
+      <details><summary>Caddie Tickets</summary>
+        <ul>
+          <li>1 included</li>
+          <li>2 extra available per day at Player Grill</li>
+        </ul>
+      </details>
+      <details><summary>Credentials & Access</summary>
+        <ul>
+          <li>Only PGA Tour Certified Agents may enter restricted zones</li>
+        </ul>
+      </details>
     </div>
   </div>
+
 {% elif section == "Family & Guest Services" %}
   <div class="section">
-    <div class="subtitle">👨‍👩‍👧 Family & Guest Services</div>
     <div class="content">
-      <strong>🏠 Hospitality</strong><br>
-      • Located in Clubhouse<br>
-      • Player + 4 guests<br>
-      • Kids under 10 not counted<br>
-      • Hours:<br>
-        – Breakfast: 5:00–11:00 AM<br>
-        – Lunch: 11:00–3:00 PM<br>
-        – Snacks: 3:00–7:00 PM<br>
-        – Bar: 11:00 AM–7:00 PM<br><br>
-
-      <strong>🧒 Childcare</strong><br>
-      • Location: Redeemer Lutheran Church (0.4 mi)<br>
-      • Mon–Wed: 8:00 AM–5:30 PM<br>
-      • Thu–Sun: 8:00 AM–7:00 PM<br><br>
-
-      <strong>🅿️ Guest Parking</strong><br>
-      • Lot D with shuttle to Gate 5<br>
-      • Hours: 4:00 AM–11:00 PM<br><br>
-
-      <strong>🧭 Player Grill</strong><br>
-      • Location: Behind range<br>
-      • Open to support, caddies, players<br><br>
-
-      <strong>📞 Transport</strong><br>
-      • Fugazy Hotline: (123) 456-7890
+      <details><summary>Hospitality Access</summary>
+        <ul>
+          <li>Dining Room: Player + 4 guests</li>
+          <li>Children under 10 not counted</li>
+        </ul>
+      </details>
+      <details><summary>Childcare</summary>
+        <ul>
+          <li>Redeemer Lutheran Church (0.4 mi)</li>
+          <li>Mon–Wed: 8 AM – 5:30 PM</li>
+          <li>Thu–Sun: 8 AM – 7 PM</li>
+        </ul>
+      </details>
+      <details><summary>Parking</summary>
+        <ul>
+          <li>Lot D with shuttle to Gate 5</li>
+          <li>Open: 4 AM – 11 PM</li>
+        </ul>
+      </details>
+      <details><summary>Dining</summary>
+        <ul>
+          <li>Player Grill (support staff welcome)</li>
+        </ul>
+      </details>
     </div>
   </div>
+
 {% elif section == "Contact Directory" %}
   <div class="section">
-    <div class="subtitle">📇 Contact Directory</div>
     <div class="content">
-      <strong>🏌️ Player Relations</strong><br>
-      • Office: Swat Room (5 AM–9 PM)<br><br>
-
-      <strong>📞 Key Staff</strong><br>
-      • Security: via Player Relations<br>
-      • Medical: First Aid onsite<br>
-      • Rules: Ask Walking Scorer<br>
-      • Agronomy: Contact via Player Relations<br><br>
-
-      <strong>📰 Media</strong><br>
-      • Contact: Julie Pine<br>
-      • Info in official handout<br><br>
-
-      <strong>🚐 Transportation</strong><br>
-      • Fugazy Hotline: (123) 456-7890<br>
-      • Email also available
+      <details><summary>Player Relations</summary>
+        <ul>
+          <li>Swat Room, 5 AM – 9 PM</li>
+        </ul>
+      </details>
+      <details><summary>Key Contacts</summary>
+        <ul>
+          <li>Security, Medical, Rules: via Player Relations</li>
+          <li>Media: Julie Pine</li>
+          <li>Agronomy: Contact through Player Relations</li>
+        </ul>
+      </details>
+      <details><summary>Transportation</summary>
+        <ul>
+          <li>Fugazy Hotline: (123) 456-7890</li>
+        </ul>
+      </details>
     </div>
   </div>
+
 {% elif section == "Course Access & Practice Info" %}
   <div class="section">
-    <div class="subtitle">⛳ Course Access & Practice Info</div>
     <div class="content">
-      <strong>🏌️ Practice Areas</strong><br>
-      • Open: 60 mins before tee time to dusk<br>
-      • Range, short game, and 2 putting greens<br><br>
-
-      <strong>⛳ Short Game</strong><br>
-      • Max 30-yard shots only<br><br>
-
-      <strong>📋 Putting Greens</strong><br>
-      • No penetrating devices (except tees)<br>
-      • Use 9th green rear section only<br><br>
-
-      <strong>📐 Yardage Book Rules</strong><br>
-      • Model Local Rule G-11 in effect<br>
-      • No non-approved books<br><br>
-
-      <strong>📏 DMDs & Levels</strong><br>
-      • Levels banned on championship greens (June 2+)<br>
-      • DMDs allowed in practice only<br><br>
-
-      <strong>📍 Hole Locations</strong><br>
-      • Texted ~30 mins post-play<br>
-      • Also at starting tees<br><br>
-
-      <strong>🟦 Teeing Areas</strong><br>
-      • Variations may occur during rounds<br><br>
-
-      <strong>⚖️ Playoff Format</strong><br>
-      • 2-hole aggregate: holes 17 & 18<br>
-      • If tied: sudden death (holes 15–18 rotation)
+      <details><summary>Practice Access</summary>
+        <ul>
+          <li>Open: 60 min before first tee to dusk</li>
+          <li>Range, short game, putting green</li>
+        </ul>
+      </details>
+      <details><summary>Short Game Area</summary>
+        <ul>
+          <li>Max 30-yard shots</li>
+        </ul>
+      </details>
+      <details><summary>Putting Green Rules</summary>
+        <ul>
+          <li>No penetrating tools (except tees)</li>
+          <li>Use back section of 9th green</li>
+        </ul>
+      </details>
+      <details><summary>Yardage Book Rules</summary>
+        <ul>
+          <li>Only USGA-approved books</li>
+          <li>Model Local Rule G-11 in effect</li>
+        </ul>
+      </details>
+      <details><summary>Devices</summary>
+        <ul>
+          <li>DMDs allowed in practice only</li>
+          <li>No levels after June 2</li>
+        </ul>
+      </details>
+      <details><summary>Hole Locations & Tee Areas</summary>
+        <ul>
+          <li>Texted after play each day</li>
+          <li>Practice tees may vary</li>
+        </ul>
+      </details>
+      <details><summary>Playoff Format</summary>
+        <ul>
+          <li>2-hole (17 & 18), then sudden death (15–18)</li>
+        </ul>
+      </details>
     </div>
   </div>
 {% endif %}
 
-  <hr />
-  <p style="text-align:center; font-size: 0.8rem;">© 2025 United States Golf Association. All Rights Reserved.</p>
+<hr />
+<p style="text-align:center; font-size: 0.8rem;">© 2025 United States Golf Association. All Rights Reserved.</p>
 
-  <script>
-    const toggle = document.getElementById("modeToggle");
+<script>
+  const toggle = document.getElementById("modeToggle");
+  window.onload = function () {
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode === "true") {
+      document.documentElement.classList.add("dark-mode");
+      toggle.checked = true;
+    }
+    document.body.style.visibility = "visible";
+    setTimeout(() => {
+      document.documentElement.classList.remove("no-animate");
+    }, 100);
+  };
+  toggle.addEventListener("change", function () {
+    const newValue = this.checked ? "true" : "false";
+    document.cookie = `darkMode=${newValue};path=/`;
+    localStorage.setItem("darkMode", newValue);
+    document.documentElement.classList.toggle("dark-mode", this.checked);
+  });
+</script>
 
-    window.onload = function () {
-      const savedMode = localStorage.getItem("darkMode");
-      if (savedMode === "true") {
-        document.documentElement.classList.add("dark-mode");
-        toggle.checked = true;
-      }
-      document.body.style.visibility = "visible";
-      setTimeout(() => {
-        document.documentElement.classList.remove("no-animate");
-      }, 100);
-    };
-
-    toggle.addEventListener("change", function () {
-      const newValue = this.checked ? "true" : "false";
-      document.cookie = `darkMode=${newValue};path=/`;
-      localStorage.setItem("darkMode", newValue);
-      document.documentElement.classList.toggle("dark-mode", this.checked);
-    });
-  </script>
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-69MWYNCENJ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-69MWYNCENJ');
-  </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-69MWYNCENJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-69MWYNCENJ');
+</script>
 </body>
 </html>
