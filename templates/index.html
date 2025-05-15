@@ -5,14 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2025 U.S. Open Player Guide</title>
 
-  <!-- ✅ Prevent flicker and toggle jump -->
   <style>
-    body {
-      visibility: hidden;
-    }
-    .no-animate * {
-      transition: none !important;
-    }
+    body { visibility: hidden; }
+    .no-animate * { transition: none !important; }
   </style>
   <script>
     const savedMode = localStorage.getItem("darkMode");
@@ -138,19 +133,13 @@
     }
 
     @media screen and (max-width: 600px) {
-      .subtitle {
-        font-size: 1.1rem;
-      }
-
-      .content {
-        font-size: 0.95rem;
-      }
+      .subtitle { font-size: 1.1rem; }
+      .content { font-size: 0.95rem; }
     }
   </style>
 </head>
 
 <body>
-  <!-- 🌗 Toggle in top-right -->
   <div class="toggle-group">
     <span style="font-size: 1.2rem;">🌗</span>
     <label class="toggle-switch">
@@ -159,71 +148,104 @@
     </label>
   </div>
 
-  <!-- 🏌️ Oakmont Logo centered below -->
   <div style="text-align: center; margin-top: 0.5rem;">
     <img src="{{ url_for('static', filename='oakmont-logo-bg.png') }}" width="120" alt="Oakmont Logo" />
   </div>
 
-  <!-- 🧭 Navigation Dropdown -->
   <form method="get">
     <select name="section" onchange="this.form.submit()">
-      <option {{ 'selected' if section == 'Welcome Message' }}>Welcome Message</option>
-      <option {{ 'selected' if section == 'Schedule Overview' }}>Schedule Overview</option>
-      <option {{ 'selected' if section == 'Player Services' }}>Player Services</option>
-      <option {{ 'selected' if section == 'Dining Options' }}>Dining Options</option>
-      <option {{ 'selected' if section == 'Transportation Info' }}>Transportation Info</option>
-      <option {{ 'selected' if section == 'Contact & Emergency Info' }}>Contact & Emergency Info</option>
+      <option {% if section == 'Welcome' %}selected{% endif %}>Welcome</option>
+      <option {% if section == 'Championship Schedule' %}selected{% endif %}>Championship Schedule</option>
+      <option {% if section == 'Player Information' %}selected{% endif %}>Player Information</option>
+      <option {% if section == 'Caddie Information' %}selected{% endif %}>Caddie Information</option>
+      <option {% if section == 'Dining & Hospitality' %}selected{% endif %}>Dining & Hospitality</option>
+      <option {% if section == 'Transportation & Parking' %}selected{% endif %}>Transportation & Parking</option>
+      <option {% if section == 'Fitness & Recovery' %}selected{% endif %}>Fitness & Recovery</option>
+      <option {% if section == 'Tickets & Credentialing' %}selected{% endif %}>Tickets & Credentialing</option>
+      <option {% if section == 'Family & Guest Services' %}selected{% endif %}>Family & Guest Services</option>
+      <option {% if section == 'Contact Directory' %}selected{% endif %}>Contact Directory</option>
+      <option {% if section == 'Course Access & Practice Info' %}selected{% endif %}>Course Access & Practice Info</option>
     </select>
   </form>
 
-  <!-- 📄 Content Section -->
-  {% if section == "Welcome Message" %}
+  {% if section == "Welcome" %}
     <div class="section">
       <div class="subtitle">Welcome to Oakmont!</div>
       <div class="content">
         Welcome to the 2025 U.S. Open at Oakmont! This mobile booklet is your go-to guide for everything you need during championship week.
       </div>
     </div>
-  {% elif section == "Schedule Overview" %}
+  {% elif section == "Championship Schedule" %}
     <div class="section">
-      <div class="subtitle">Key Championship Dates</div>
+      <div class="subtitle">Schedule Overview</div>
       <div class="content">
-        • Sat, June 8 (12–6 P.M.)<br>
-        • Sun, June 9 (7 A.M.–6 P.M.)<br>
-        • Mon, June 10 (6 A.M.–6 P.M.)<br>
-        - Tue: Practice & Media Day<br>
-        - Wed: Final Practice<br>
-        - Thu–Sun: Championship Rounds
+        Practice rounds: June 9–11<br>
+        Championship rounds: June 12–15<br>
+        Registration: June 7–10 (hours vary)<br>
+        Broadcast ends: 8PM (Thu–Sat), 7PM (Sun)
       </div>
     </div>
-  {% elif section == "Player Services" %}
+  {% elif section == "Player Information" %}
     <div class="section">
-      <div class="subtitle">On-Site Amenities</div>
+      <div class="subtitle">Player Info & Guidelines</div>
       <div class="content">
-        Locker rooms, massage, laundry, and athletic trainers available daily.
+        Locker room, equipment testing, practice passes, inside-the-ropes access, rule notices, laundry, and more.
       </div>
     </div>
-  {% elif section == "Dining Options" %}
+  {% elif section == "Caddie Information" %}
     <div class="section">
-      <div class="subtitle">Cafeteria & Grab-and-Go</div>
+      <div class="subtitle">Caddie Guidelines</div>
       <div class="content">
-        Located near the clubhouse. Open 6 A.M.–8 P.M. Dietary needs supported.
+        Bib pickup, locker room access, dress code, practice walking rules, dining, and transportation notes.
       </div>
     </div>
-  {% elif section == "Transportation Info" %}
+  {% elif section == "Dining & Hospitality" %}
     <div class="section">
-      <div class="subtitle">Shuttles & Parking</div>
+      <div class="subtitle">Meals, Hours & Locations</div>
       <div class="content">
-        Complimentary shuttle every 15 min. Player & caddie lots near Gate 3 & 2.
+        Player-Only Dining, Player Grill, and Hospitality Lounge menus and hours. Access rules for guests and family.
       </div>
     </div>
-  {% elif section == "Contact & Emergency Info" %}
+  {% elif section == "Transportation & Parking" %}
+    <div class="section">
+      <div class="subtitle">Shuttles, Parking & Travel</div>
+      <div class="content">
+        Courtesy cars, PIT and AGC airport info, charter options, guest and caddie lot details, and shuttle schedules.
+      </div>
+    </div>
+  {% elif section == "Fitness & Recovery" %}
+    <div class="section">
+      <div class="subtitle">Wellness & Therapy</div>
+      <div class="content">
+        Player Fitness Center, USGA Recovery Team, ice baths, sauna, and independent PT locations.
+      </div>
+    </div>
+  {% elif section == "Tickets & Credentialing" %}
+    <div class="section">
+      <div class="subtitle">Access & Tickets</div>
+      <div class="content">
+        Player ticket packages, guest pass rules, digital ticketing links, and credential access zones.
+      </div>
+    </div>
+  {% elif section == "Family & Guest Services" %}
+    <div class="section">
+      <div class="subtitle">Support & Childcare</div>
+      <div class="content">
+        Player guest policies, childcare (O.C.L. Inc.), family dining access, and shuttle drop-off points.
+      </div>
+    </div>
+  {% elif section == "Contact Directory" %}
     <div class="section">
       <div class="subtitle">Key Contacts</div>
       <div class="content">
-        - Services: +1 (555) 123-4567<br>
-        - Security: +1 (555) 765-4321<br>
-        - Emergency: 911
+        Player Relations, Security, Medical, Agronomy, Media, Rules, and Transportation hotlines.
+      </div>
+    </div>
+  {% elif section == "Course Access & Practice Info" %}
+    <div class="section">
+      <div class="subtitle">Practice Area Rules</div>
+      <div class="content">
+        Putting green protocols, short game guidelines, hole location sheets, tee marker notes, and course syringing info.
       </div>
     </div>
   {% endif %}
@@ -231,7 +253,6 @@
   <hr />
   <p style="text-align:center; font-size: 0.8rem;">© 2025 United States Golf Association. All Rights Reserved.</p>
 
-  <!-- 🌙 Dark Mode Logic -->
   <script>
     const toggle = document.getElementById("modeToggle");
 
@@ -241,8 +262,6 @@
         document.documentElement.classList.add("dark-mode");
         toggle.checked = true;
       }
-
-      // Reveal page and restore transitions
       document.body.style.visibility = "visible";
       setTimeout(() => {
         document.documentElement.classList.remove("no-animate");
@@ -257,7 +276,6 @@
     });
   </script>
 
-  <!-- 📈 Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-69MWYNCENJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
