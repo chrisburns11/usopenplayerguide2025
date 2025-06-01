@@ -142,7 +142,7 @@
   <form method="get">
     <select name="section" onchange="this.form.submit()">
       <option {% if section == 'Welcome' %}selected{% endif %}>Welcome</option>
-      <option {% if section == 'Championship Schedule' %}selected{% endif %}>Championship Schedule</option>
+      <option {% if section == 'Schedule' %}selected{% endif %}>Schedule</option>
       <option {% if section == 'Player Information' %}selected{% endif %}>Player Information</option>
       <option {% if section == 'Caddie Information' %}selected{% endif %}>Caddie Information</option>
       <option {% if section == 'Dining & Hospitality' %}selected{% endif %}>Dining & Hospitality</option>
@@ -165,7 +165,7 @@
     </div>
   </div>
 
-{% elif section == "Championship Schedule" %}
+{% elif section == "Schedule" %}
   <div class="section">
     <div class="content">
       <details>
